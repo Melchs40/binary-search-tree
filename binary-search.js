@@ -152,4 +152,27 @@ class Tree {
       } else return node;
     }
   }
+
+  levelOrder(callback) {
+    let node = this.root;
+    let nodeArray = [];
+    let printArray = [];
+    if (node == null) {
+      return 'There is no binary tree';
+    }
+
+    nodeArray.push(node);
+
+    while (nodeArray.length > 0) {
+      let currentNode = nodeArray.shift();
+      if (currentNode.left !== null) {
+        nodeArray.push(currentNode.left);
+      }
+      if (currentNode.right !== null) {
+        nodeArray.push(currentNode.right);
+      }
+      printArray.push(currentNode.data);
+    }
+    callback(printArray);
+  }
 }
