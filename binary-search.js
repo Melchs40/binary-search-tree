@@ -173,6 +173,90 @@ class Tree {
       }
       printArray.push(currentNode.data);
     }
-    callback(printArray);
+
+    if (callback == null) {
+      return printArray;
+    } else callback(printArray);
+  }
+
+  inOrder(callback, node = this.root, array = []) {
+    if (this.root == null) {
+      return 'There is no binary tree';
+    }
+    if (node == null) {
+      return node;
+    }
+
+    this.inOrder(null, node.left, array);
+
+    array.push(node.data);
+
+    this.inOrder(null, node.right, array);
+
+    if (callback == null) {
+      return array;
+    } else callback(array);
+  }
+
+  preOrder(callback, node = this.root, array = []) {
+    if (this.root == null) {
+      return 'There is no binary tree';
+    }
+
+    if (node == null) {
+      return node;
+    }
+
+    array.push(node.data);
+
+    this.preOrder(null, node.left, array);
+
+    this.preOrder(null, node.right, array);
+
+    if (callback == null) {
+      return array;
+    } else callback(array);
+  }
+
+  //   preOrder(callback, node = this.root, array = []) {
+  //     if (node == null) {
+  //       return 'There is no binary tree';
+  //     }
+
+  //     array.push(node.data);
+
+  //     if (node.left == null && node.right == null) {
+  //       return node;
+  //     }
+  //     if (node.left !== null) {
+  //       this.inOrder(null, node.left, array);
+  //     }
+
+  //     if (node.right !== null) {
+  //       this.inOrder(null, node.right, array);
+  //     }
+
+  //     if (callback == null) {
+  //       return array;
+  //     } else callback(array);
+  //   }
+
+  postOrder(callback, node = this.root, array = []) {
+    if (this.root == null) {
+      return 'There is no binary tree';
+    }
+    if (node == null) {
+      return node;
+    }
+
+    this.postOrder(null, node.left, array);
+
+    this.postOrder(null, node.right, array);
+
+    array.push(node.data);
+
+    if (callback == null) {
+      return array;
+    } else callback(array);
   }
 }
