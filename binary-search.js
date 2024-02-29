@@ -259,4 +259,118 @@ class Tree {
       return array;
     } else callback(array);
   }
+
+  // height(value) {
+  //   let node = this.root;
+  //   let newNode = '';
+  //   let tempHeight = 0;
+  //   let height = 0;
+
+  //   if (node == null) {
+  //     return 'There is no binary tree';
+  //   }
+
+  //   while (node) {
+  //     if (value == node.data) {
+  //       newNode = node;
+  //       while (newNode) {
+  //         if (newNode.left == null && newNode.right == null) {
+  //           tempHeight++;
+  //           if (tempHeight > height) {
+  //             height = tempHeight;
+  //             tempHeight = 0;
+  //           }
+  //           return height;
+  //         }
+
+  //         if (newNode.left !== null) {
+  //           tempHeight++;
+  //           newNode = newNode.left;
+  //         }
+
+  //         if (newNode.right !== null) {
+  //           tempHeight++;
+  //           newNode = newNode.right;
+  //         }
+  //       }
+  //     }
+
+  //     if (value < node.data) {
+  //       if (node.left == null) {
+  //         return `The value ${value} is not in this binary tree`;
+  //       } else node = node.left;
+  //     }
+
+  //     if (value > node.data) {
+  //       if (node.right == null) {
+  //         return `The value ${value} is not in this binary tree`;
+  //       } else node = node.right;
+  //     }
+  //   }
+  // }
+
+  height(value) {
+    let node = this.root;
+
+    if (node == null) {
+      return 'There is no binary tree';
+    }
+
+    while (node) {
+      if (value == node.data) {
+        break;
+      } else if (value < node.data) {
+        if (node.left == null) {
+          return `The value ${value} is not in this binary tree`;
+        } else node = node.left;
+      } else {
+        if (node.right == null) {
+          return `The value ${value} is not in this binary tree`;
+        } else node = node.right;
+      }
+    }
+
+    function findHeight(node) {
+      if (node == null) {
+        return 0;
+      }
+
+      const leftHeight = findHeight(node.left);
+      const rightHeight = findHeight(node.right);
+
+      return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    return findHeight(node);
+  }
+
+  depth(value) {
+    let node = this.root;
+    let depth = 0;
+
+    if (node == null) {
+      return 'There is no binary tree';
+    }
+
+    while (node) {
+      if (value == node.data) {
+        depth++;
+        return depth;
+      }
+
+      if (value < node.data) {
+        if (node.left == null) {
+          return `The value ${value} is not in this binary tree`;
+        } else depth++;
+        node = node.left;
+      }
+
+      if (value > node.data) {
+        if (node.right == null) {
+          return `The value ${value} is not in this binary tree`;
+        } else depth++;
+        node = node.right;
+      }
+    }
+  }
 }
