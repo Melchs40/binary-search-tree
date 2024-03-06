@@ -373,4 +373,89 @@ class Tree {
       }
     }
   }
+
+  // isBalanced(node = this.root) {
+  //   if (node == null) {
+  //     return 'There is no binary tree';
+  //   }
+
+  //   function findHeight(node) {
+  //     if (node == null) {
+  //       return 0;
+  //     }
+
+  //     const leftHeight = findHeight(node.left);
+  //     const rightHeight = findHeight(node.right);
+
+  //     return Math.max(leftHeight, rightHeight) + 1;
+  //   }
+
+  //   function balancing(node = this.root) {
+  //     const leftHeight = findHeight(node.left);
+  //     const rightHeight = findHeight(node.right);
+  //     const heightDiff = Math.abs(leftHeight - rightHeight);
+  //     if (heightDiff > 1) {
+  //       return false;
+  //     }
+  //     return balancing(node.left) && balancing(node.right);
+  //   }
+
+  //   return balancing((node = this.root));
+  // }
+
+  isBalanced(currentNode = this.root) {
+    if (currentNode === null) {
+      return 'There is no binary tree';
+    }
+
+    function findHeight(node) {
+      if (node == null) {
+        return 0;
+      }
+
+      const leftHeight = findHeight(node.left);
+      const rightHeight = findHeight(node.right);
+
+      return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    const heightDiff = Math.abs(
+      findHeight(currentNode.left) - findHeight(currentNode.right)
+    );
+    if (heightDiff > 1) {
+      return 'This tree is not balanced';
+    } else {
+      return 'This tree is balanced';
+    }
+  }
+
+  rebalance() {
+    let newArr = this.inOrder();
+    this.root = this.buildTree(newArr);
+  }
 }
+
+let testArray = [];
+
+while (testArray.length < 25) {
+  let number = Math.random() * 100 + 1;
+  number = Math.floor(number);
+  testArray.push(number);
+}
+
+let tree = new Tree(testArray);
+console.log(tree.isBalanced());
+console.log(tree.preOrder());
+console.log(tree.inOrder());
+console.log(tree.postOrder());
+tree.insert(110);
+tree.insert(111);
+tree.insert(130);
+tree.insert(150);
+tree.insert(200);
+console.log(tree.isBalanced());
+tree.rebalance();
+console.log(tree.isBalanced());
+console.log(tree.preOrder());
+console.log(tree.inOrder());
+console.log(tree.postOrder());
